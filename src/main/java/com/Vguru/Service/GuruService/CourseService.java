@@ -12,4 +12,9 @@ public interface CourseService  {
     List<CourseDTO> getAllCourses();
     List<CourseDTO> getCourseByStandard(Integer standard);
     List<LectureDTO> getCourseLectures(Long id);
+
+    CourseDTO createCourse(CourseDTO courseDTO);
+
+    CourseDTO createLecture(LectureDTO lectureDTO, Long id);
+
 }

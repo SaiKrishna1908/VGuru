@@ -4,9 +4,11 @@ package com.Vguru.Service.Controller;
 import com.Vguru.Service.GuruService.CourseService;
 import com.Vguru.Service.GuruService.LectureService;
 import com.Vguru.Service.GuruService.StudentService;
+import com.Vguru.Service.api.v1.domainDTO.CourseDTO;
 import com.Vguru.Service.api.v1.domainDTO.LectureDTO;
 import com.Vguru.Service.api.v1.domainDTO.ListCourseDTO;
 import com.Vguru.Service.api.v1.domainDTO.ListLectureDTO;
+import com.Vguru.Service.model.Course;
 import com.Vguru.Service.model.Lecture;
 import com.Vguru.Service.model.Student;
 import lombok.RequiredArgsConstructor;
@@ -35,5 +37,17 @@ public class CourseController {
         List<LectureDTO> lectureDTOS = courseService.getCourseLectures(courseId);
         System.out.println(lectureDTOS.size());
         return new ListLectureDTO(lectureDTOS);
+    }
+
+    @PostMapping(value = "/new")
+    CourseDTO postCourse(@RequestBody CourseDTO courseDTO){
+        CourseDTO savedCourseDTO = courseService.createCourse(courseDTO);
+        return savedCourseDTO;
+    }
+
+    @PostMapping(value = "/{id}/lecture/new")
+    CourseDTO postLecture(@RequestBody LectureDTO lectureDTO, @PathVariable Long id){
+        CourseDTO courseDTO = courseService.createLecture(lectureDTO, id);
+        return courseDTO;
     }
 }

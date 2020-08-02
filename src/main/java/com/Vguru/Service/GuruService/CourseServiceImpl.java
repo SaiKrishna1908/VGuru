@@ -3,7 +3,9 @@ package com.Vguru.Service.GuruService;
 import com.Vguru.Service.Repos.CourseRepo;
 import com.Vguru.Service.Repos.LectureRepo;
 import com.Vguru.Service.Repos.StudentRepo;
+import com.Vguru.Service.api.v1.Mapper.CourseDTOMapper;
 import com.Vguru.Service.api.v1.Mapper.CourseMapper;
+import com.Vguru.Service.api.v1.Mapper.LectureDTOMapper;
 import com.Vguru.Service.api.v1.Mapper.LectureMapper;
 import com.Vguru.Service.api.v1.domainDTO.CourseDTO;
 import com.Vguru.Service.api.v1.domainDTO.LectureDTO;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
@@ -31,6 +34,8 @@ public class CourseServiceImpl implements CourseService{
 
     private final CourseMapper courseMapper;
     private  final LectureMapper lectureMapper;
+    private  final CourseDTOMapper courseDTOMapper;
+    private  final LectureDTOMapper lectureDTOMapper;
 
     @Override
     public List<CourseDTO> getAllCourses() {
@@ -48,5 +53,37 @@ public class CourseServiceImpl implements CourseService{
         List<Lecture> lectures = lectureRepo.getLecturesByCourses_Id(id);
 
         return lectures.stream().map(lectureMapper::lectureTOLectureDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public CourseDTO createCourse(CourseDTO courseDTO) {
+        //add all
+        Course course = courseDTOMapper.courseDTOToCourse(courseDTO);
+        CourseDTO savedCourseDTO = courseMapper.courseToCourseDTO(courseRepo.save(course));
+        return savedCourseDTO;
+    }
+
+    @Override
+    public CourseDTO createLecture(LectureDTO lectureDTO, Long id) {
+        Optional<Course> courseOptional = courseRepo.findById(id);
+
+        if(courseOptional.isPresent()){
+
+
+
+            Course savedCourse = courseOptional.get();
+
+            //Save Lecture
+            Lecture lecture = lectureDTOMapper.LectureDTOToLecture(lectureDTO);
+            lecture.setCourses(savedCourse);
+
+            Lecture savedLecture = lectureRepo.save(lecture);
+            savedCourse.getLectures().add(savedLecture);
+
+            return courseMapper.courseToCourseDTO(courseRepo.save(savedCourse));
+        }
+
+        log.debug("Error saving Lecture");
+        return null;
     }
 }
