@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface CourseRepo extends JpaRepository<Course, Long> {
     List<Course> getCourseByStandard(Integer standard);
+
 }
