@@ -6,16 +6,13 @@ import com.Vguru.Service.GuruService.StudentService;
 import com.Vguru.Service.api.v1.domainDTO.ListCourseDTO;
 import com.Vguru.Service.api.v1.domainDTO.StudentDTO;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping(value = "/student")
+@CrossOrigin(allowedHeaders = "*" , origins = "*")
 public class StudentController {
 
     private final CourseService courseService;
