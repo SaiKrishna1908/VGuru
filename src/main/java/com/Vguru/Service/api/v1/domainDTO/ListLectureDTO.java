@@ -1,5 +1,6 @@
 package com.Vguru.Service.api.v1.domainDTO;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -8,10 +9,8 @@ import java.util.List;
 
 @Data
 @AllArgsConstructor
-public class ListCourseDTO {
+public class ListLectureDTO {
 
-    private List<CourseDTO> courseDTOS = new ArrayList<>();
+    List<LectureDTO> lectureDTOS = new ArrayList<>();
+
 }
-
-
-//Post
