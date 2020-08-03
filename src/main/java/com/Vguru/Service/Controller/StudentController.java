@@ -5,8 +5,11 @@ import com.Vguru.Service.GuruService.LectureService;
 import com.Vguru.Service.GuruService.StudentService;
 import com.Vguru.Service.api.v1.domainDTO.ListCourseDTO;
 import com.Vguru.Service.api.v1.domainDTO.StudentDTO;
+import com.Vguru.Service.model.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 
 @RestController
@@ -19,9 +22,13 @@ public class StudentController {
     private  final StudentService studentService;
     private final LectureService lectureService;
 
+
+    //TODO: get email from Request Param's
     @GetMapping("/{id}")
     public StudentDTO getStudentById(@PathVariable Long id){
 
+        UserInfo userInfo = new UserInfo();
+        userInfo.setId(id);
         StudentDTO studentDTO =  studentService.findById(id);
         if(studentDTO == null)
                 return new StudentDTO();

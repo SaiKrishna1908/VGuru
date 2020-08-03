@@ -6,6 +6,7 @@ import com.Vguru.Service.Repos.StudentRepo;
 import com.Vguru.Service.model.Course;
 import com.Vguru.Service.model.Lecture;
 import com.Vguru.Service.model.Student;
+import com.Vguru.Service.model.UserInfo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
@@ -116,31 +117,37 @@ public class dataloader implements CommandLineRunner {
     private void loadData(){
 
         Student sai = new Student();
-        sai.setUsername("Sai Krishna");
+        sai.setEmail("Email.com");
         sai.setStandard(1);
-
+        sai.setUsername("sai1908");
+        sai.setPassword("12345");
         sai = studentRepo.save(sai);
 
         Student chaitu = new Student();
-        chaitu.setUsername("Chaitanya");
         chaitu.setStandard(5);
-
+        chaitu.setEmail("chaitu1866.com");
+        chaitu.setUsername("chaitu1866");
+        chaitu.setPassword("09877");
         chaitu = studentRepo.save(chaitu);
 
         Student ram = new Student();
-        ram.setUsername("Ramu");
         ram.setStandard(5);
-
+        ram.setEmail("ram1908.com");
+        ram.setUsername("lazytitan");
+        ram.setPassword("qewey");
         ram = studentRepo.save(ram);
 
         Student raju = new Student();
-        raju.setUsername("Raju");
+        raju.setUsername("geralt");
+        raju.setPassword("rivia");
         raju.setStandard(10);
-
+        raju.setEmail("warframe.com");
         raju = studentRepo.save(raju);
 
         Student qwerty = new Student();
-        qwerty.setUsername("qwerty1908");
+        qwerty.setEmail("qwerty@email.com");
+        qwerty.setUsername("ajcky");
+        qwerty.setPassword("password");
         qwerty.setStandard(10);
 
         // courses and Lectures
