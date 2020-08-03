@@ -12,6 +12,7 @@ import com.Vguru.Service.model.Course;
 import com.Vguru.Service.model.Lecture;
 import com.Vguru.Service.model.Student;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,21 +34,21 @@ public class CourseController {
 
     //TODO: Move it into lecture controller
     @GetMapping(value = "/{courseId}/lectures")
-    ListLectureDTO getCourseLectures(@PathVariable Long courseId){
+    public ResponseEntity<?> getCourseLectures(@PathVariable Long courseId){
         List<LectureDTO> lectureDTOS = courseService.getCourseLectures(courseId);
         System.out.println(lectureDTOS.size());
-        return new ListLectureDTO(lectureDTOS);
+        return ResponseEntity.ok(new ListLectureDTO(lectureDTOS));
     }
 
     @PostMapping(value = "/new")
-    CourseDTO postCourse(@RequestBody CourseDTO courseDTO){
+    public ResponseEntity<?> postCourse(@RequestBody CourseDTO courseDTO){
         CourseDTO savedCourseDTO = courseService.createCourse(courseDTO);
-        return savedCourseDTO;
+        return ResponseEntity.ok(savedCourseDTO);
     }
 
     @PostMapping(value = "/{id}/lecture/new")
-    CourseDTO postLecture(@RequestBody LectureDTO lectureDTO, @PathVariable Long id){
+    public ResponseEntity<?> postLecture(@RequestBody LectureDTO lectureDTO, @PathVariable Long id){
         CourseDTO courseDTO = courseService.createLecture(lectureDTO, id);
-        return courseDTO;
+        return ResponseEntity.ok(courseDTO);
     }
 }
