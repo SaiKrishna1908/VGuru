@@ -29,17 +29,22 @@ public class Student implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @NotNull
-    private String password;
-    @NotNull
+    @Id
+    @Column(name = "username")
     private String username;
 
+    @NotNull
+    private String password;
+
     private Integer standard;
+
+    @Column(name = "admin")
+    private Boolean isAdmin = false;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "Student_Courses",
-            joinColumns={@JoinColumn(name = "student_id"), @JoinColumn(name = "email")},
+            joinColumns={@JoinColumn(name = "student_id"), @JoinColumn(name = "email"), @JoinColumn(name = "username")},
             inverseJoinColumns = {@JoinColumn(name = "course_id")}
     )
     private Set<Course> courses = new HashSet<>();

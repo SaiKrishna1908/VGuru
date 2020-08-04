@@ -10,6 +10,8 @@ import java.util.List;
 public interface StudentService {
 
     StudentDTO findById(Long id);
-    List<CourseDTO> findCourses(Long id);
-    Student findByUsername(String username);
+    List<CourseDTO> findCoursesByIdAndUsername(Long id, String username);
+    Student findStudentByUsername(String username);
+
+    StudentDTO findByUsername(String username);
 }

@@ -58,8 +58,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        // To use h2 console when spring security is enabled
+        http.headers().frameOptions().sameOrigin();
         http.cors().and();
         http.csrf().disable()
+                .authorizeRequests().antMatchers("/console/**").permitAll().and()
                 .authorizeRequests().antMatchers("/authenticate").permitAll().anyRequest()
                 .authenticated().and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);

@@ -128,6 +128,7 @@ public class dataloader implements CommandLineRunner {
         chaitu.setEmail("chaitu1866.com");
         chaitu.setUsername("chaitu1866");
         chaitu.setPassword("09877");
+        chaitu.setIsAdmin(true);
         chaitu = studentRepo.save(chaitu);
 
         Student ram = new Student();

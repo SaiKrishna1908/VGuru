@@ -16,5 +16,6 @@ public class StudentDTO {
     private Integer standard;
     private String username;
     private  String email;
+    private  Boolean isAdmin;
 //    private Set<Course> courseSet = new HashSet<>();
 }

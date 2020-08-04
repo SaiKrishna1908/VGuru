@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class UserInfo implements Serializable {
 
     private Long id;
-    private    String email;
-
+    private String email;
+    private String username;
 
 }

@@ -44,15 +44,15 @@ public class StudentServiceImpl implements StudentService, UserDetailsService {
     }
 
     @Override
-    public List<CourseDTO> findCourses(Long id) {
+    public List<CourseDTO> findCoursesByIdAndUsername(Long id ,String Username) {
         Optional<Student> studentOptional = studentRepo.findStudentById(id);
 
         if (!studentOptional.isPresent()) {
             log.debug("No student found");
             return null;
         } else {
-            Integer standard = studentOptional.get().getStandard();
-            List<CourseDTO> courseDTOS = courseRepo.getCourseByStandard(standard).stream()
+//            Integer standard = studentOptional.get().getStandard();
+            List<CourseDTO> courseDTOS = courseRepo.findCourseByStudents(studentOptional.get()).stream()
                     .map(courseMapper::courseToCourseDTO).collect(Collectors.toList());
             return courseDTOS;
         }
@@ -60,9 +60,16 @@ public class StudentServiceImpl implements StudentService, UserDetailsService {
     }
 
     @Override
-    public Student findByUsername(String username) {
+    public Student findStudentByUsername(String username) {
         if(username != null)
             return studentRepo.findStudentByUsername(username);
+        return null;
+    }
+
+    @Override
+    public StudentDTO findByUsername(String username) {
+        if(username != null)
+            return studentMapper.studentToStudentDTO(studentRepo.findStudentByUsername(username));
         return null;
     }
 
