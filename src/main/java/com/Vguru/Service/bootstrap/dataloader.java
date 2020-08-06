@@ -23,8 +23,8 @@ public class dataloader implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        loadCourses();
-        loadData();
+//        loadCourses();
+//        loadData();
     }
 
     private void loadCourses(){

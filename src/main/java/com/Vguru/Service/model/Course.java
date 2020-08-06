@@ -37,7 +37,6 @@ public class Course implements Serializable {
     public Course addStudent(Student student){
         this.getStudents().add(student);
         student.getCourses().add(this);
-
         return this;
     }
 }
