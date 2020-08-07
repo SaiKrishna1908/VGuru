@@ -44,7 +44,7 @@ public class Student implements Serializable {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "Student_Courses",
-            joinColumns={@JoinColumn(name = "student_id"), @JoinColumn(name = "email"), @JoinColumn(name = "username")},
+            joinColumns={@JoinColumn(name = "email"), @JoinColumn(name = "student_id"), @JoinColumn(name = "username")},
             inverseJoinColumns = {@JoinColumn(name = "course_id")}
     )
     private Set<Course> courses = new HashSet<>();

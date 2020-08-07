@@ -24,7 +24,7 @@ public class dataloader implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 //        loadCourses();
-//        loadData();
+    //    loadData();
     }
 
     private void loadCourses(){
@@ -210,7 +210,7 @@ public class dataloader implements CommandLineRunner {
         courseRepo.save(eco);
 
         Lecture ecolec = new Lecture();
-        ecolec.setUrl("Sexy.com");
+        ecolec.setUrl("Youtube.com");
         ecolec.setCourses(eco);
         eco.addLecture(lectureRepo.save(ecolec));
         courseRepo.save(eco.addStudent(raju));
