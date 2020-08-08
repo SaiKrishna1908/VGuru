@@ -17,4 +17,6 @@ public interface CourseService  {
 
     CourseDTO createLecture(LectureDTO lectureDTO, Long id);
 
+    CourseDTO getCourseById(Long id);
+
 }

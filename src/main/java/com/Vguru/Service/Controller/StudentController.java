@@ -7,6 +7,7 @@ import com.Vguru.Service.api.v1.domainDTO.CourseDTO;
 import com.Vguru.Service.api.v1.domainDTO.ListCourseDTO;
 import com.Vguru.Service.api.v1.domainDTO.StudentDTO;
 import com.Vguru.Service.model.Course;
+import com.Vguru.Service.model.Student;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +60,19 @@ public class StudentController {
         return  ResponseEntity.ok(courses);
     }
 
+    @PostMapping("/new")
+    public ResponseEntity<?> createStudent(@RequestBody Student student){
+        StudentDTO savedStudentDTO = studentService.createStudent(student);
+
+        return ResponseEntity.ok(savedStudentDTO);
+    }
+
+    @PostMapping("{sid}/course/{cid}/add")
+    public ResponseEntity<?> addCourse(@PathVariable Long sid, @PathVariable Long cid){
+
+        studentService.addCourse(sid, cid);
+        return ResponseEntity.ok(courseService.getCourseById(cid));
+    }
 
 
 }

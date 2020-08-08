@@ -86,4 +86,14 @@ public class CourseServiceImpl implements CourseService{
         log.debug("Error saving Lecture");
         return null;
     }
+
+    @Override
+    public CourseDTO getCourseById(Long id) {
+        Optional<Course> optionalCourse = courseRepo.findById(id);
+        if(!optionalCourse.isPresent()) {
+            log.debug("No courses found with Id" + id);
+            return null;
+        }
+        return courseMapper.courseToCourseDTO(optionalCourse.get());
+    }
 }

@@ -4,6 +4,7 @@ import com.Vguru.Service.Repos.CourseRepo;
 import com.Vguru.Service.Repos.LectureRepo;
 import com.Vguru.Service.Repos.StudentRepo;
 import com.Vguru.Service.api.v1.Mapper.CourseMapper;
+import com.Vguru.Service.api.v1.Mapper.StudentDTOMapper;
 import com.Vguru.Service.api.v1.Mapper.StudentMapper;
 import com.Vguru.Service.api.v1.domainDTO.CourseDTO;
 import com.Vguru.Service.api.v1.domainDTO.StudentDTO;
@@ -33,6 +34,7 @@ public class StudentServiceImpl implements StudentService, UserDetailsService {
     private final CourseRepo courseRepo;
     private final LectureRepo lectureRepo;
 
+    private final StudentDTOMapper studentDTOMapper;
     private final StudentMapper studentMapper;
     private final CourseMapper courseMapper;
 
@@ -44,7 +46,7 @@ public class StudentServiceImpl implements StudentService, UserDetailsService {
     }
 
     @Override
-    public List<CourseDTO> findCoursesByIdAndUsername(Long id ,String Username) {
+    public List<CourseDTO> findCoursesByIdAndUsername(Long id, String Username) {
         Optional<Student> studentOptional = studentRepo.findStudentById(id);
 
         if (!studentOptional.isPresent()) {
@@ -61,22 +63,49 @@ public class StudentServiceImpl implements StudentService, UserDetailsService {
 
     @Override
     public Student findStudentByUsername(String username) {
-        if(username != null)
+        if (username != null)
             return studentRepo.findStudentByUsername(username);
         return null;
     }
 
+
     @Override
     public StudentDTO findByUsername(String username) {
-        if(username != null)
+        if (username != null)
             return studentMapper.studentToStudentDTO(studentRepo.findStudentByUsername(username));
         return null;
     }
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         Student student = studentRepo.findStudentByUsername(username);
-        return new User(student.getUsername(), student.getPassword(),null);
+        return new User(student.getUsername(), student.getPassword(), null);
     }
+
+    @Override
+    public StudentDTO createStudent(Student student) {
+        Student savedStudent = studentRepo.save(student);
+        return studentMapper.studentToStudentDTO(savedStudent);
+    }
+
+    @Override
+    public StudentDTO addCourse(Long sid, Long cid) {
+        Optional<Student> studentOptional = studentRepo.findStudentById(sid);
+        if(studentOptional.isPresent()){
+
+            Student student = studentOptional.get();
+
+            Optional<Course> courseOptional = courseRepo.findById(cid);
+
+            student.getCourses().add(courseOptional.get());
+            Student savedStudent = studentRepo.save(student);
+
+            return studentMapper.studentToStudentDTO(savedStudent);
+        }
+        return null;
+    }
+
+
 }
